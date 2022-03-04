@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html"; charset="UTF-8"/>
+</head>
+<body> 
+		<div style="border:1px solid#ddd; padding:5px;">
+		 <form method="POST" action="" onsubmit="return validate()">
+			<label> Username </label>
+			<input type="text" name="username" id="username"/>
+			<br><br>
+			<label> Password </label>
+			<input type="password" name="password" id="password"/>
+			<br><br>
+			<input type="button" value="Login" id="submit" onclick="validate()"/>
+			
+		 </form>
+		</div>
+		
+		<script>
+		function validate()  {
+			var username = document.getElementById("username").value;
+			var password = document.getElementById("password").value;
+			
+			if(username == " " || username.length <5 || username.length >15){
+				alert("Không hợp lệ");
+				return false;
+			}
+			
+			if(password.length<8 || password.length >20 ){
+				alert("Không hợp lệ!");
+				return false;
+			}
+			if(username=="admin" && password=='admin'){
+				alert("Chào admin !!!!!!")
+				return true;
+			}
+	
+		}
+		</script>
+		
+</body>
+</html>
