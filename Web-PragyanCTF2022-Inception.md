@@ -3,23 +3,24 @@
 >Đề bài cho source code html
 >
 
-## Bước 1: Ta copy source code về và debug xem từng phần biến 
+## Ta copy source code về và debug xem từng biến 
 
 [index.html](https://github.com/tinasahara1/Study/blob/1d909a74d52dc977d73bab7e4312a3769ce67945/file/index.html)
 
 Ta có source code gồm những biến sau :
-![source code]()
+
+![source code](https://github.com/tinasahara1/Study/blob/e6344b40c1caecacc5e818c2f28d535e8d5d2aaa/file/source_code.PNG)
 
 
 ### Flag1 : 
-Để xem giá trị của mảng : `console.log(_0xa965)` 
+Để xem giá trị của mảng : `console.log(_0xa965)`  => Không có gtri nào cả 
 
-![debug1]()
+![debug1](https://github.com/tinasahara1/Study/blob/e6344b40c1caecacc5e818c2f28d535e8d5d2aaa/file/debug1.PNG)
 
 
 Ta thêm hàm `alert(_0x31e3x2)` để in một thông báo chứa tham số ta truyền vào :
 
-![debug2]()
+![debug2](https://github.com/tinasahara1/Study/blob/e6344b40c1caecacc5e818c2f28d535e8d5d2aaa/file/debug2.PNG)
 
 
 => `Flag Part 1: p_ctf{INfjnity5`
@@ -31,11 +32,11 @@ Do hàm eval() làm cho mảng ko thể hiển thị => `_0xd4d0 is not defined`
 
 =>  Vì vậy ta xóa nó đi và `console.log(_0xd4d0)` lại là có thể xem được hoặc có thể thêm `document.write(_0xd4d0)` vào source để xem toàn bộ nội dung của tham số đó 
 
-![debug2]()
+![debug2](https://github.com/tinasahara1/Study/blob/e6344b40c1caecacc5e818c2f28d535e8d5d2aaa/file/debug3.PNG)
 
 Nội dung đầu ra dạng base64 => ta decode và nhận được 
 
-![flag2]()
+![flag2](https://github.com/tinasahara1/Study/blob/e6344b40c1caecacc5e818c2f28d535e8d5d2aaa/file/flag2.PNG)
 
 => `PCTF Flag Part 2: _b3g1n5_w1th_4n_`
 
@@ -56,8 +57,9 @@ for(var i=0;i< DontChange.length;i++){
 ```
 
 Phân tích đoạn code : 
-- Kết quả ta cần tìm là hàm `YourAnswer` 
-- Mà `YourAnswer[i]= user.charCodeAt(i) - DontChange[i] -i*10` => Flag 
+- Kết quả ta cần tìm là mảng `YourAnswer` 
+- Mà `YourAnswer[i]= user.charCodeAt(i) - DontChange[i] -i*10` => ta được mã unicode của YourAnswer 
+- Sau đó dùng hàm chr() trong py để chuyển từ mã unicode sang kí tự 
 
 Ta có code khai thác như sau :
 ```py
