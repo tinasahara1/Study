@@ -54,7 +54,7 @@ body {
         Login page
     </h1>
     <div class="login">
-    <form id="login" method="post" action="login.php">
+    <form id="login" method="post" action="check.php">
         <label><b>Username</b></label>
         <input type="text" name="user" id="Uname" placeholder="Username" ><br><br>
         <label><b>Password</b></label>
