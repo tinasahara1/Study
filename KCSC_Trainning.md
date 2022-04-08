@@ -79,6 +79,22 @@ amount=-1/*&name=*/%20UNION%20select%201,CONCAT(COLUMN_NAME),TABLE_NAME%20from%2
 
 # child_orange 
 
+Đầu tiên ta có source code :
+![image](https://user-images.githubusercontent.com/57553555/162471087-15884ea2-f251-47a8-bd93-5a5c17857f8e.png)
+
+## Phân tích :
+- Đầu vào là tham số `/?url=` => và sau đó gán vào biến $url
+- Do mình đọc hàm parse_url chưa ổn lắm nên đã var_dump() nó ra để xem (hàm mới thêm để debug code)
+- Đầu tiên biến url được lọc bởi hàm filter_var() => Hàm sẽ kiểm tra url có hợp lệ hay không => Nếu không hợp lệ => Invalid url
+- Tiếp theo $url sẽ được kiểm tra nếu trong biến url không có `http:` và `nhienit.kma:2010` => Invalid server
+- Tiếp đến nó sẽ lọc 1 số các kí tự đặc biệt => Nếu trong biến url có thì => you are not orange 
+- Sau đó nó lại kiểm tra xem khi hàm `parse_url` phân tích cú pháp url thì => host có khác `nhienit.kma` không hoặc port có khác `2010` không => Nếu khác thì => invalid host or port => Nếu giống thì tiếp lục lọc 2 tham số đầu vào là `user & pass` 
+- Và cuối cùng nó sẽ chạy vào hàm include và thi hành biến $url 
+
+=> Từ phân tích ta thấy được tham số url đầu vào sẽ bị lọc rất nhìu và yêu cầu bắt buộc host nhienit.kma và port 2010 => Có khi nào để tránh mình dùng localhost để khai thác SSRF không ta 
+=> Và ở cuối ta để ý rằng sau khi kiểm tra hoàn tất thì nó sẽ đc thi hành bởi hàm include => Đây cũng là 1 dấu hiệu cho lỗ hổng file include + với trong file source code ta thấy thêm 1 file .htaccess => `php_flag allow_url_include on` 
+
+
 
 
 
