@@ -19,17 +19,17 @@ Password<input type="password" name="pswrd"/>
 function check(form)/*function to check userid & password*/
 {
   var test=true;
- /*the following code checkes whether the entered userid and password are matching*/
+ /*Check user pass admin*/
  if(form.userid.value == "administrator" && form.pswrd.value == "123456789")
   {
     alert("Login success !!!!!")
   }
-
+/*Check length user */
   if(form.userid.value == " " || form.userid.value.length <5 || form.userid.value.length >15)
   {
     test=false;
   }
-
+/*Check length pass */
   if(form.pswrd.value<8 || form.pswrd.value.length >20)
   {
     test=false;
