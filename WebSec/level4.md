@@ -1,15 +1,6 @@
 # LevelFour - Cereal is nation
 >PHP Object Injection_Sql cookie (deserialization php)
 >
-## Các định nghĩa cơ bản 
-- Hàm hỗ trợ **Deserialization** đối tượng là unserialize( ) 
-Input là một chuỗi đại diện cho object
-Output là object được xây dựng lại từ chuỗi truyền vào hàm unserialize( )
-
-- Hàm hỗ trợ **Serialization** đối tượng là serialize( )
-Input của hàm này là một object 
-Output của hàm sẽ là một chuỗi lưu object đó => cụ thể sẽ lưu class của object và các thuộc tính của object
-
 
 ## Cách khai thác 
 
