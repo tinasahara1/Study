@@ -1,8 +1,8 @@
 {
-    "url": "https://raw.githubusercontent.com/tinasahara1/Study/refs/heads/main/Code%20py/test1.yaml",
+    "url": "https://raw.githubusercontent.com/tinasahara1/Study/refs/heads/main/Code%20py/test.yaml",
     "urls": [
         {
-            "url": "https://raw.githubusercontent.com/tinasahara1/Study/refs/heads/main/Code%20py/test1.yaml",
+            "url": "https://raw.githubusercontent.com/tinasahara1/Study/refs/heads/main/Code%20py/test.yaml",
             "name": "Foo"
         }
     ]
